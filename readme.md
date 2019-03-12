@@ -2,8 +2,8 @@ My config.json in a basic format:
 
 ```json
 {
-    "token": "{token}",
-    "prefix": "{prefix}",
-    "ownerID": "{server owner ID}"
+    "token": "{bot token}",
+    "prefix": "{bot prefix (your choice)}",
+    "ownerID": "{bot owner ID}"
 }
 ```
