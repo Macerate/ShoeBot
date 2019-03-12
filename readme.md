@@ -1,4 +1,4 @@
-My config.json without my secrets:
+My config.json in a basic format:
 
 ```json
 {
