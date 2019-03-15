@@ -2,16 +2,14 @@ const Discord = require("discord.js");
 const Enmap = require("enmap");
 const fs = require("fs");
 const colors = require("colors");
-
+const SQLite = require("better-sqlite3");
 const config = require("./config.json");
+
+const sql = new SQLite('./scores.sqlite');
 const client = new Discord.Client();
+
 client.config = config;
-
-//Run once loaded
-
-client.on("ready", () => {
-	console.log("Successfully loaded!".rainbow.bold.underline + `\nPrefix: \"${config.prefix}\"`.bold);
-});
+client.sql = sql;
 
 //Load Events
 
@@ -28,7 +26,7 @@ fs.readdir("./events/", (err, files) => {
 
 		let eventName = file.split(".")[0];
 
-		console.log(`Attempting to load event ${eventName}`.yellow);
+		console.log(`Attempting to load event ${eventName}...`.yellow);
 
 		client.on(eventName, event.bind(null, client));
 
@@ -56,7 +54,7 @@ fs.readdir("./commands/", (err, files) => {
 
 		let commandName = file.split(".")[0];
 
-		console.log(`Attempting to load command ${commandName}`.yellow);
+		console.log(`Attempting to load command ${commandName}...`.yellow);
 
 		client.commands.set(commandName, props);
 
