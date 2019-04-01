@@ -2,14 +2,14 @@ const Discord = require("discord.js");
 const Enmap = require("enmap");
 const fs = require("fs");
 const colors = require("colors");
-const SQLite = require("better-sqlite3");
 const config = require("./config.json");
 
-const sql = new SQLite('./scores.sqlite');
 const client = new Discord.Client();
 
 client.config = config;
-client.sql = sql;
+
+client.aglets = new Enmap({ name: "aglets" });
+client.experience = new Enmap({ name: "experience" });
 
 //Load Events
 
@@ -27,8 +27,12 @@ fs.readdir("./events/", (err, files) => {
 		let eventName = file.split(".")[0];
 
 		console.log(`Attempting to load event ${eventName}...`.yellow);
-
-		client.on(eventName, event.bind(null, client));
+		if (eventName != "ready") {
+			client.on(eventName, event.bind(null, client));
+		}
+		else {
+			client.once(eventName, event.bind(null, client));
+		}
 
 		delete require.cache[require.resolve(`./events/${file}`)];
 
