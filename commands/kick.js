@@ -2,6 +2,7 @@ exports.run = (client, message, args) => {
 	if (message.member.permissions.has("KICK_MEMBERS")) {
 		if (args.length == 0) {
 			message.reply(`Usage: \`${client.config.prefix}kick @(member) (reason)\``).catch(console.error);
+			return;
 		}
 		else {
 			let member = message.mentions.member.first();
